@@ -5,7 +5,11 @@ let isActive = false
 function handleMessages (message,sender,sendResponse) {
     if (message.action == "ON"){
         isActive = true
-    }else if (message.action == "OFF") {isActive = false}
+        console.log ("Processing !")
+    }else if (message.action == "OFF") {
+        isActive = false
+        console.log ("Processing off !")
+    }
 
 }
 
@@ -25,7 +29,6 @@ async function Classify (){
             (prediction.className == "Sexy" && prediction.probability >= 0.5)){
             isNSFW = true
         }
-        console.log (predictions)
     })
     if (isNSFW){
        frame.style.filter = "blur(70px)"
@@ -33,7 +36,7 @@ async function Classify (){
 }
 async function init (){
     model = await nsfwjs.load(chrome.runtime.getURL('model/'))
-    setInterval(Classify, 300)
+    setInterval(Classify, 500)
     }
 
 init ()
